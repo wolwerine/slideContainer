@@ -11,6 +11,7 @@
 
 @protocol ScrollViewManagerDelegate
 - (void)changeScrollViewStateWithOffset:(float)offset;
+- (void)finishScrollWithTurningPage:(BOOL)needsTurn;
 @end
 
 @interface BBViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ScrollViewManagerDelegate>

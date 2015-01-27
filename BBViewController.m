@@ -94,10 +94,14 @@
 }
 
 
-- (void)changeScrollViewStateWithOffset:(float)offset{
+- (void)changeScrollViewStateWithOffset:(float)offset
+{
     [delegate changeScrollViewWithOffset:offset];
-    
-//    super touchesBegan:<#(NSSet *)#> withEvent:<#(UIEvent *)#>
+}
+
+- (void)finishScrollWithTurningPage:(BOOL)needsTurn
+{
+    [delegate finishScrollWithTurningPage:needsTurn];
 }
 
 

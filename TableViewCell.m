@@ -19,6 +19,10 @@
     
     CGPoint refTouchLocation;
     BOOL canRefTouchLocationEdited;
+    float relativeLocation;
+    float prevRelativeLocation;
+    
+    BOOL isMovingOffset;
     
 }
 @synthesize scrollView;
@@ -84,13 +88,13 @@
 
 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollview {
-//    scrollview
+- (void)scrollViewDidScroll:(UIScrollView *)scrollview
+{
     
     CGPoint location = [scrollView.panGestureRecognizer locationInView:scrollView];
-//    NSLog(@"%f", location.x);
 
-    
+//    relativeLocation = 0;
+//    prevRelativeLocation = 0;
     
     // defines the allowed direction of the scroll
     if (scrollview.contentOffset.x > 0.0f) {
@@ -101,25 +105,56 @@
         if (scrollview.contentOffset.x*-1 > underLabelWidth ) {
             scrollview.contentOffset = CGPointMake(-underLabelWidth, 0);
             
+            isMovingOffset = YES;
+            
             if (canRefTouchLocationEdited){
                 refTouchLocation = location;
                 canRefTouchLocationEdited = NO;
             }
             
-            float relativeLocation = location.x-refTouchLocation.x;
-            NSLog(@" %f", relativeLocation);
+            relativeLocation = location.x-refTouchLocation.x;
+            
+//            if (relativeLocation < prevRelativeLocation)
+//            {
+//                relativeLocation = prevRelativeLocation;
+//            }
+    
+            
+            NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
             
             [_delegate changeScrollViewStateWithOffset:relativeLocation];
             
-            scrollview 
+            prevRelativeLocation = relativeLocation;
+        }
+        else if (isMovingOffset)
+        {
+            relativeLocation = location.x-refTouchLocation.x;
+            NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
             
+            [_delegate changeScrollViewStateWithOffset:relativeLocation];
             
-            //            [delegate changeScrollViewStateWithOffset:scrollView.contentOffset.x];
-            //            scrollView touchesShouldBegin:<#(NSSet *)#> withEvent:<#(UIEvent *)#> inContentView:<#(UIView *)#>
-            //            super.ViewController
         }
     }
 }
+
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSLog(@"scroll finished");
+    isMovingOffset = NO;
+    
+    if (relativeLocation > 75)
+        [_delegate finishScrollWithTurningPage:YES];
+    else
+        [_delegate finishScrollWithTurningPage:NO];
+    
+    refTouchLocation.x = 0;
+    
+}
+
+
+
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:[recognizer.view superview]];

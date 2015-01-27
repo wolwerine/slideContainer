@@ -27,6 +27,9 @@
     
     isOnFirstPage = false;
     
+    [self.scrollView setDelegate:self];
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
     BBViewController *bViewController = [[BBViewController alloc]init];
     bViewController.delegate = self;
@@ -65,61 +68,63 @@
 }
 
 
--(void)changeScrollViewWithOffset:(float)offset{
-//    if (self.scrollView.isScrollEnabled)
-//        [self.scrollView setScrollEnabled:NO];
-//    else
-        [self.scrollView setScrollEnabled:YES];
+#pragma mark - 
 
-    [self.scrollView setUserInteractionEnabled:YES];
-    //        self.scrollView.delegate = self;
-//    [self gestureRecognizer:self.scrollView.gestureRecognizers shouldRecognizeSimultaneouslyWithGestureRecognizer:self.scrollView.gestureRecognizers];
+-(void)changeScrollViewWithOffset:(float)offset
+{
+//    [self.scrollView setScrollEnabled:YES];
+//    [self.scrollView setUserInteractionEnabled:YES];
 
+    NSLog(@" %f", self.scrollView.frame.size.width-offset);
     
-    [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0) animated:YES];
-//        [self scrollViewWillBeginDragging: self.scrollView];
-    
-//    [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width*0, 0.0f) animated:YES];
+    if (self.scrollView.frame.size.width-offset < 320)
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0)];
+
+
     isOnFirstPage = true;
 }
 
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    // disable timer here
-//    
-//    NSLog(@"main: %f", scrollView.contentOffset.x);
-//    
-//}
+-(void)finishScrollWithTurningPage:(BOOL)needsTurn
+{
+    if( needsTurn )
+    {
+//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             [self.scrollView setContentOffset:CGPointMake(0, 0)];
+                         }
+                         completion:^(BOOL finished){
+                             NSLog(@"Done!");
+                         }];
+        
+        
+        [self.scrollView setScrollEnabled:YES];
+    } else {
+        [self.scrollView setContentOffset:CGPointMake(320, 0) animated:YES];
+        [self.scrollView setScrollEnabled:NO];
+    }
+    
+    
+    
+}
 
+#pragma mark - UIScrollViewDelegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
     
 
-    if (page == 1 && isOnFirstPage){
+    if (page == 1 )
         [scrollView setScrollEnabled:NO];
-        isOnFirstPage = false;
-    }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-
-    NSLog(@" @%", targetContentOffset);
-//    se
 }
 
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
 
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"");
-    
-    
-}
 
 
 @end
