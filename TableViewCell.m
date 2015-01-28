@@ -67,6 +67,8 @@
     
     self.scrollView.delegate = self;
     
+    self.scrollView.canCancelContentTouches = NO;
+    
     
 	UIView *scrollViewContentView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))];
 	scrollViewContentView.backgroundColor = [UIColor whiteColor];
@@ -131,8 +133,8 @@
             relativeLocation = location.x-refTouchLocation.x;
             NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
             
-            [_delegate changeScrollViewStateWithOffset:relativeLocation];
-            
+//            [_delegate changeScrollViewStateWithOffset:relativeLocation];
+            [_delegate changeScrollViewStateWithOffset:-100];
         }
     }
 }

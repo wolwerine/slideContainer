@@ -14,6 +14,7 @@
 @interface ViewController ()
 {
     BOOL isOnFirstPage;
+    float generatedOffset;
 }
 
 @end
@@ -24,7 +25,7 @@
 {
     [super viewDidLoad];
 
-    
+    generatedOffset = 0;
     isOnFirstPage = false;
     
     [self.scrollView setDelegate:self];
@@ -77,8 +78,17 @@
 
     NSLog(@" %f", self.scrollView.frame.size.width-offset);
     
-    if (self.scrollView.frame.size.width-offset < 320)
-        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0)];
+    if (self.scrollView.frame.size.width-offset < 320){
+//        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0)];
+        
+        if (offset != -100)
+            generatedOffset++;
+        else
+            generatedOffset--;
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-generatedOffset*3, 0)];
+
+        
+    }
 
 
     isOnFirstPage = true;
@@ -86,6 +96,8 @@
 
 -(void)finishScrollWithTurningPage:(BOOL)needsTurn
 {
+    
+    generatedOffset = 0;
     if( needsTurn )
     {
 //        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
