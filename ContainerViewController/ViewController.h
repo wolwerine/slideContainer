@@ -10,7 +10,7 @@
 
 @protocol MainScrollViewManagerDelegate
 
-- (void)changeScrollViewWithOffset:(float)offset;
+- (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn;
 
 @end;

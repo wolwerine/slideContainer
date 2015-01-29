@@ -71,23 +71,25 @@
 
 #pragma mark - 
 
--(void)changeScrollViewWithOffset:(float)offset
+-(void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity
 {
-//    [self.scrollView setScrollEnabled:YES];
-//    [self.scrollView setUserInteractionEnabled:YES];
 
     NSLog(@" %f", self.scrollView.frame.size.width-offset);
     
-    if (self.scrollView.frame.size.width-offset < 320){
+    if (self.scrollView.frame.size.width-offset < 320 && velocity > 0){
 //        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0)];
         
-        if (offset != -100)
-            generatedOffset++;
-        else
-            generatedOffset--;
+        
+            generatedOffset+=2;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-generatedOffset*3, 0)];
 
         
+    }else  if (self.scrollView.contentOffset.x<320 && velocity < 0){
+//        if (offset != -100)
+//            generatedOffset++;
+//        else
+            generatedOffset-=2;
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-generatedOffset*3, 0)];
     }
 
 
@@ -100,17 +102,17 @@
     generatedOffset = 0;
     if( needsTurn )
     {
-//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
-        [UIView animateWithDuration:0.25
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             [self.scrollView setContentOffset:CGPointMake(0, 0)];
-                         }
-                         completion:^(BOOL finished){
-                             NSLog(@"Done!");
-                         }];
+//        [UIView animateWithDuration:0.25
+//                              delay:0.0
+//                            options: UIViewAnimationOptionCurveEaseIn
+//                         animations:^{
+//                             [self.scrollView setContentOffset:CGPointMake(0, 0)];
+//                         }
+//                         completion:^(BOOL finished){
+//                             NSLog(@"Done!");
+//                         }];
         
         
         [self.scrollView setScrollEnabled:YES];
@@ -130,7 +132,7 @@
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
     
-
+    
     if (page == 1 )
         [scrollView setScrollEnabled:NO];
 }

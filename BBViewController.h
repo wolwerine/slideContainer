@@ -10,7 +10,7 @@
 #import "ViewController.h"
 
 @protocol ScrollViewManagerDelegate
-- (void)changeScrollViewStateWithOffset:(float)offset;
+- (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn;
 @end
 

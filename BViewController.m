@@ -125,7 +125,7 @@
 #pragma mark - 
 
 - (void)changeScrollViewStateWithOffset:(float)offset{
-    [delegate changeScrollViewWithOffset:offset];
+//    [delegate changeScrollViewWithOffset:offset];
 }
 
 

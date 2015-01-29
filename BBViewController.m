@@ -44,6 +44,8 @@
     //set the datasource for the table view to the current object
     self.tableView.dataSource = self;
     
+    self.tableView.bounces = NO;
+    
     [self.view addSubview: self.tableView];
     
 }
@@ -94,9 +96,9 @@
 }
 
 
-- (void)changeScrollViewStateWithOffset:(float)offset
+- (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 {
-    [delegate changeScrollViewWithOffset:offset];
+    [delegate changeScrollViewWithOffset:offset andVelocity:velocity];
 }
 
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn

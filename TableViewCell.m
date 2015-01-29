@@ -20,9 +20,9 @@
     CGPoint refTouchLocation;
     BOOL canRefTouchLocationEdited;
     float relativeLocation;
-    float prevRelativeLocation;
     
     BOOL isMovingOffset;
+    CGPoint lastVelocity;
     
 }
 @synthesize scrollView;
@@ -93,88 +93,94 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollview
 {
     
-    CGPoint location = [scrollView.panGestureRecognizer locationInView:scrollView];
+    CGPoint location = [scrollview.panGestureRecognizer locationInView:scrollview];
+    
+    CGPoint translation = [scrollview.panGestureRecognizer translationInView:scrollview];
+    
+    CGPoint velocity = [scrollview.panGestureRecognizer velocityInView:scrollview];
+    
+    
+    NSLog(@" translation: %f velocity: %f", translation.x, velocity.x);
 
-//    relativeLocation = 0;
-//    prevRelativeLocation = 0;
     
-    // defines the allowed direction of the scroll
-    if (scrollview.contentOffset.x > 0.0f) {
-		scrollview.contentOffset = CGPointZero;
-        canRefTouchLocationEdited = YES;
-	}
-    else{
-        if (scrollview.contentOffset.x*-1 > underLabelWidth ) {
-            scrollview.contentOffset = CGPointMake(-underLabelWidth, 0);
+    if (velocity.x == 0 && isMovingOffset){
+        isMovingOffset = NO;
+        refTouchLocation.x = 0;
+        
+        if (lastVelocity.x >0)
+            [_delegate finishScrollWithTurningPage:YES];
+        else
+            [_delegate finishScrollWithTurningPage:NO];
             
-            isMovingOffset = YES;
-            
-            if (canRefTouchLocationEdited){
-                refTouchLocation = location;
-                canRefTouchLocationEdited = NO;
-            }
-            
-            relativeLocation = location.x-refTouchLocation.x;
-            
-//            if (relativeLocation < prevRelativeLocation)
-//            {
-//                relativeLocation = prevRelativeLocation;
-//            }
+    } else {
     
-            
-            NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
-            
-            [_delegate changeScrollViewStateWithOffset:relativeLocation];
-            
-            prevRelativeLocation = relativeLocation;
+
+    
+        // defines the allowed direction of the scroll
+        if (scrollview.contentOffset.x > 0.0f) {
+            scrollview.contentOffset = CGPointZero;
+            canRefTouchLocationEdited = YES;
         }
-        else if (isMovingOffset)
-        {
-            relativeLocation = location.x-refTouchLocation.x;
-            NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
-            
+        else{
+            if (scrollview.contentOffset.x*-1 > underLabelWidth ) {
+                scrollview.contentOffset = CGPointMake(-underLabelWidth, 0);
+                
+                isMovingOffset = YES;
+                
+                if (canRefTouchLocationEdited){
+                    refTouchLocation = location;
+                    canRefTouchLocationEdited = NO;
+                }
+                
+                relativeLocation = location.x-refTouchLocation.x;
+                
+                
+                NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
+                
+                [_delegate changeScrollViewWithOffset:relativeLocation andVelocity:velocity.x];
 //            [_delegate changeScrollViewStateWithOffset:relativeLocation];
-            [_delegate changeScrollViewStateWithOffset:-100];
+//            [_delegate changeScrollViewStateWithOffset:velocity.x];
+                lastVelocity = velocity;
+            }
+            else if (isMovingOffset)
+            {
+                relativeLocation = location.x-refTouchLocation.x;
+                NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
+                
+                [_delegate changeScrollViewWithOffset:relativeLocation andVelocity:velocity.x];
+//            [_delegate changeScrollViewStateWithOffset:relativeLocation];
+//            [_delegate changeScrollViewStateWithOffset:velocity.x];
+                lastVelocity = velocity;
+            }
         }
     }
+
+        
 }
 
 
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void) scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"scroll finished");
-    isMovingOffset = NO;
-    
-    if (relativeLocation > 75)
-        [_delegate finishScrollWithTurningPage:YES];
-    else
-        [_delegate finishScrollWithTurningPage:NO];
-    
-    refTouchLocation.x = 0;
-    
+    NSLog(@"scroll ended");
 }
 
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    NSLog(@"scroll finished");
+//    isMovingOffset = NO;
+//    
+//    if (relativeLocation > 75)
+//        [_delegate finishScrollWithTurningPage:YES];
+//    else
+//        [_delegate finishScrollWithTurningPage:NO];
+//    
+//    refTouchLocation.x = 0;
+//    
+//}
 
 
 
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-    
-    NSLog(@" %f ", location.x);
-    
-    //Do stuff here...
-}
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"");
-}
-
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"");
-}
 
 
 
