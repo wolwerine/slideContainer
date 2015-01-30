@@ -10,8 +10,13 @@
 #import "ViewController.h"
 
 @protocol ScrollViewManagerDelegate
+
 - (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn;
+
+- (void) setTextForLabel:(NSString*)text;
+
+
 @end
 
 @interface BBViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ScrollViewManagerDelegate>

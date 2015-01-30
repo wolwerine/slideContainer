@@ -33,7 +33,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    tableData = [NSArray arrayWithObjects:@"1", @"2", @"3", nil];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect frame = self.view.frame;
+        frame.origin.y += 20;
+        frame.size.height -= 20;
+        self.view.frame = frame;
+    }
+    
+    tableData = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
@@ -88,6 +96,7 @@
 //    }
     
     cell.textLabel.text = [NSString stringWithFormat:@"cell #%i", indexPath.row];
+    [cell.mytextLabel setText:[NSString stringWithFormat:@"cell #%i", indexPath.row]];
     
     
     
@@ -107,7 +116,10 @@
 }
 
 
-
+- (void) setTextForLabel:(NSString*)text
+{
+    [delegate setTextForLabel:text];
+}
 
 /*
 #pragma mark - Navigation

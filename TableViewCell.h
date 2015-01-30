@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) UIScrollView * scrollView;
 @property (nonatomic, weak) id<ScrollViewManagerDelegate> delegate;
+@property (nonatomic, strong) UILabel *mytextLabel;
 
 @end

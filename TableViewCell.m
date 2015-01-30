@@ -8,7 +8,7 @@
 
 #import "TableViewCell.h"
 
-#define underLabelWidth 20
+#define underLabelWidth 30
 
 
 
@@ -23,15 +23,19 @@
     
     BOOL isMovingOffset;
     CGPoint lastVelocity;
+    BOOL isTresholReached;
     
 }
-@synthesize scrollView;
+@synthesize scrollView, mytextLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
+        mytextLabel = [[UILabel alloc] init];
+        
     }
     return self;
 }
@@ -72,7 +76,13 @@
     
 	UIView *scrollViewContentView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))];
 	scrollViewContentView.backgroundColor = [UIColor whiteColor];
-	[self.scrollView addSubview:scrollViewContentView];
+	
+    [mytextLabel setFrame:scrollViewContentView.frame];
+    [scrollViewContentView addSubview:mytextLabel];
+    
+    [self.scrollView addSubview:scrollViewContentView];
+    
+    
 //	self.scrollViewContentView = scrollViewContentView;
 	
 //	UILabel *scrollViewLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.scrollViewContentView.bounds, 10.0f, 0.0f)];
@@ -87,6 +97,18 @@
     
 }
 
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    NSLog(@"scroll began");
+    
+    isMovingOffset = YES;
+    canRefTouchLocationEdited = YES;
+    isTresholReached = NO;
+    
+    [_delegate setTextForLabel:mytextLabel.text];
+    
+}
 
 
 
@@ -104,14 +126,18 @@
 
     
     if (velocity.x == 0 && isMovingOffset){
+        
+        NSLog(@"touch finished");
+        
         isMovingOffset = NO;
         refTouchLocation.x = 0;
         
-        if (lastVelocity.x >0)
+        if (lastVelocity.x >= 0){
+            [scrollView setContentOffset:CGPointMake(-underLabelWidth, 0)];
             [_delegate finishScrollWithTurningPage:YES];
-        else
+        } else {
             [_delegate finishScrollWithTurningPage:NO];
-            
+        }
     } else {
     
 
@@ -119,13 +145,14 @@
         // defines the allowed direction of the scroll
         if (scrollview.contentOffset.x > 0.0f) {
             scrollview.contentOffset = CGPointZero;
-            canRefTouchLocationEdited = YES;
+//            canRefTouchLocationEdited = YES;
         }
         else{
             if (scrollview.contentOffset.x*-1 > underLabelWidth ) {
                 scrollview.contentOffset = CGPointMake(-underLabelWidth, 0);
                 
-                isMovingOffset = YES;
+//                isMovingOffset = YES;
+                isTresholReached = YES;
                 
                 if (canRefTouchLocationEdited){
                     refTouchLocation = location;
@@ -142,7 +169,7 @@
 //            [_delegate changeScrollViewStateWithOffset:velocity.x];
                 lastVelocity = velocity;
             }
-            else if (isMovingOffset)
+            else if (isMovingOffset && isTresholReached)
             {
                 relativeLocation = location.x-refTouchLocation.x;
                 NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
@@ -156,6 +183,12 @@
     }
 
         
+}
+
+- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    NSLog(@"dragging ended");
+    [_delegate finishScrollWithTurningPage:NO];
 }
 
 

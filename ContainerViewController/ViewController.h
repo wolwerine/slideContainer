@@ -12,6 +12,8 @@
 
 - (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn;
+- (void) setTextForLabel:(NSString*)text;
+
 
 @end;
 

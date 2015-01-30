@@ -15,6 +15,9 @@
 {
     BOOL isOnFirstPage;
     float generatedOffset;
+    
+    
+    CViewController *cViewController;
 }
 
 @end
@@ -43,7 +46,7 @@
     [self.scrollView addSubview:bViewController.view];
     [bViewController didMoveToParentViewController:self];
     
-    CViewController *cViewController = [[CViewController alloc]init];
+     cViewController = [[CViewController alloc]init];
 //    CGRect frame = cViewController.view.frame;
 //    frame.origin.x = 320;
 //    cViewController.view.frame = frame;
@@ -71,6 +74,14 @@
 
 #pragma mark - 
 
+
+- (void) setTextForLabel:(NSString*)text
+{
+    [cViewController.label setText:text];
+}
+
+
+
 -(void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity
 {
 
@@ -80,15 +91,17 @@
 //        [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-offset, 0)];
         
         
-            generatedOffset+=2;
+//            generatedOffset+=2;
+        generatedOffset++;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-generatedOffset*3, 0)];
 
         
-    }else  if (self.scrollView.contentOffset.x<320 && velocity < 0){
+    }else  if (self.scrollView.contentOffset.x<320 && velocity < 0 && self.scrollView.contentOffset.x > 0){
 //        if (offset != -100)
 //            generatedOffset++;
 //        else
-            generatedOffset-=2;
+        generatedOffset--;
+//            generatedOffset-=2;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width-generatedOffset*3, 0)];
     }
 
