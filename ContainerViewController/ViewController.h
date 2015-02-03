@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MainScrollViewManagerDelegate
+@protocol SlideScrollViewManagerDelegate
 
 - (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
 - (void)finishScrollWithTurningPage:(BOOL)needsTurn;
@@ -18,7 +18,7 @@
 @end;
 
 
-@interface ViewController : UIViewController <MainScrollViewManagerDelegate, UIScrollViewDelegate>
+@interface ViewController : UIViewController <SlideScrollViewManagerDelegate, UIScrollViewDelegate>
 
 @property (weak) IBOutlet UIScrollView *scrollView;
 

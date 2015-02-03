@@ -83,23 +83,12 @@
     [self.scrollView addSubview:scrollViewContentView];
     
     
-//	self.scrollViewContentView = scrollViewContentView;
-	
-//	UILabel *scrollViewLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.scrollViewContentView.bounds, 10.0f, 0.0f)];
-//	self.scrollViewLabel = scrollViewLabel;
-//	[self.scrollViewContentView addSubview:scrollViewLabel];
-    
-//    /The setup code (in viewDidLoad in your view controller)
-//    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-//                                            action:@selector(handleSingleTap:)];
-//    [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-//    [self.scrollView addGestureRecognizer:gestureRecognizer];
-    
 }
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    // the user starts to drag the cell
     NSLog(@"scroll began");
     
     isMovingOffset = YES;
@@ -124,7 +113,8 @@
     
     NSLog(@" translation: %f velocity: %f", translation.x, velocity.x);
 
-    
+    // if the user releases the screen, the velocity turns to "0" but the location value is still changing
+    // when the velocity is 0 we should perform the turn-page animation
     if (velocity.x == 0 && isMovingOffset){
         
         NSLog(@"touch finished");
@@ -132,6 +122,8 @@
         isMovingOffset = NO;
         refTouchLocation.x = 0;
         
+        // if the last velocity is >0 then the user was pulling to the right, in this case we need to scroll to the 2nd page
+        // otherwise we show the 1st page
         if (lastVelocity.x >= 0){
             [scrollView setContentOffset:CGPointMake(-underLabelWidth, 0)];
             [_delegate finishScrollWithTurningPage:YES];
@@ -163,10 +155,7 @@
                 
                 
                 NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
-                
                 [_delegate changeScrollViewWithOffset:relativeLocation andVelocity:velocity.x];
-//            [_delegate changeScrollViewStateWithOffset:relativeLocation];
-//            [_delegate changeScrollViewStateWithOffset:velocity.x];
                 lastVelocity = velocity;
             }
             else if (isMovingOffset && isTresholReached)
@@ -175,8 +164,6 @@
                 NSLog(@" origin:%f  relativ:%f", location.x, relativeLocation);
                 
                 [_delegate changeScrollViewWithOffset:relativeLocation andVelocity:velocity.x];
-//            [_delegate changeScrollViewStateWithOffset:relativeLocation];
-//            [_delegate changeScrollViewStateWithOffset:velocity.x];
                 lastVelocity = velocity;
             }
         }
@@ -187,6 +174,7 @@
 
 - (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    
     NSLog(@"dragging ended");
     [_delegate finishScrollWithTurningPage:NO];
 }

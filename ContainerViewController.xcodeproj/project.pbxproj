@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		92C438151A6FC9E0003374ED /* TLOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C438121A6FC9E0003374ED /* TLOverlayView.m */; };
-		92C438161A6FC9E0003374ED /* TLSwipeForOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C438141A6FC9E0003374ED /* TLSwipeForOptionsCell.m */; };
 		92C438191A764810003374ED /* BBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C438181A764810003374ED /* BBViewController.m */; };
 		92C4381C1A764AD7003374ED /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C4381B1A764AD7003374ED /* TableViewCell.m */; };
 		D06CED83182ADB5D00E328D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06CED82182ADB5D00E328D5 /* Foundation.framework */; };
@@ -25,8 +23,6 @@
 		D06CEDA4182ADB5D00E328D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06CED86182ADB5D00E328D5 /* UIKit.framework */; };
 		D06CEDAC182ADB5D00E328D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D06CEDAA182ADB5D00E328D5 /* InfoPlist.strings */; };
 		D06CEDAE182ADB5D00E328D5 /* ContainerViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D06CEDAD182ADB5D00E328D5 /* ContainerViewControllerTests.m */; };
-		D06CEDBA182ADB6B00E328D5 /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06CEDB8182ADB6B00E328D5 /* BViewController.m */; };
-		D06CEDBB182ADB6B00E328D5 /* BViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06CEDB9182ADB6B00E328D5 /* BViewController.xib */; };
 		D06CEDBF182ADB7F00E328D5 /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06CEDBD182ADB7F00E328D5 /* CViewController.m */; };
 		D06CEDC0182ADB7F00E328D5 /* CViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06CEDBE182ADB7F00E328D5 /* CViewController.xib */; };
 /* End PBXBuildFile section */
@@ -42,10 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		92C438111A6FC9E0003374ED /* TLOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLOverlayView.h; sourceTree = "<group>"; };
-		92C438121A6FC9E0003374ED /* TLOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLOverlayView.m; sourceTree = "<group>"; };
-		92C438131A6FC9E0003374ED /* TLSwipeForOptionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSwipeForOptionsCell.h; sourceTree = "<group>"; };
-		92C438141A6FC9E0003374ED /* TLSwipeForOptionsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSwipeForOptionsCell.m; sourceTree = "<group>"; };
 		92C438171A764810003374ED /* BBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBViewController.h; sourceTree = "<group>"; };
 		92C438181A764810003374ED /* BBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBViewController.m; sourceTree = "<group>"; };
 		92C4381A1A764AD7003374ED /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
@@ -69,9 +61,6 @@
 		D06CEDA9182ADB5D00E328D5 /* ContainerViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContainerViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		D06CEDAB182ADB5D00E328D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D06CEDAD182ADB5D00E328D5 /* ContainerViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContainerViewControllerTests.m; sourceTree = "<group>"; };
-		D06CEDB7182ADB6B00E328D5 /* BViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
-		D06CEDB8182ADB6B00E328D5 /* BViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BViewController.m; sourceTree = "<group>"; };
-		D06CEDB9182ADB6B00E328D5 /* BViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BViewController.xib; sourceTree = "<group>"; };
 		D06CEDBC182ADB7F00E328D5 /* CViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CViewController.h; sourceTree = "<group>"; };
 		D06CEDBD182ADB7F00E328D5 /* CViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CViewController.m; sourceTree = "<group>"; };
 		D06CEDBE182ADB7F00E328D5 /* CViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CViewController.xib; sourceTree = "<group>"; };
@@ -101,31 +90,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		92C438101A6FC9E0003374ED /* TLSwipeForOptionsCell */ = {
-			isa = PBXGroup;
-			children = (
-				92C438111A6FC9E0003374ED /* TLOverlayView.h */,
-				92C438121A6FC9E0003374ED /* TLOverlayView.m */,
-				92C438131A6FC9E0003374ED /* TLSwipeForOptionsCell.h */,
-				92C438141A6FC9E0003374ED /* TLSwipeForOptionsCell.m */,
-			);
-			path = TLSwipeForOptionsCell;
-			sourceTree = "<group>";
-		};
 		D06CED76182ADB5D00E328D5 = {
 			isa = PBXGroup;
 			children = (
 				92C4381A1A764AD7003374ED /* TableViewCell.h */,
 				92C4381B1A764AD7003374ED /* TableViewCell.m */,
-				92C438101A6FC9E0003374ED /* TLSwipeForOptionsCell */,
 				D06CEDBC182ADB7F00E328D5 /* CViewController.h */,
 				D06CEDBD182ADB7F00E328D5 /* CViewController.m */,
 				D06CEDBE182ADB7F00E328D5 /* CViewController.xib */,
 				92C438171A764810003374ED /* BBViewController.h */,
 				92C438181A764810003374ED /* BBViewController.m */,
-				D06CEDB7182ADB6B00E328D5 /* BViewController.h */,
-				D06CEDB8182ADB6B00E328D5 /* BViewController.m */,
-				D06CEDB9182ADB6B00E328D5 /* BViewController.xib */,
 				D06CED88182ADB5D00E328D5 /* ContainerViewController */,
 				D06CEDA7182ADB5D00E328D5 /* ContainerViewControllerTests */,
 				D06CED81182ADB5D00E328D5 /* Frameworks */,
@@ -274,7 +248,6 @@
 			files = (
 				D06CEDC0182ADB7F00E328D5 /* CViewController.xib in Resources */,
 				D06CED9B182ADB5D00E328D5 /* Images.xcassets in Resources */,
-				D06CEDBB182ADB6B00E328D5 /* BViewController.xib in Resources */,
 				D06CED8D182ADB5D00E328D5 /* InfoPlist.strings in Resources */,
 				D06CED96182ADB5D00E328D5 /* Main.storyboard in Resources */,
 			);
@@ -296,14 +269,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				92C438191A764810003374ED /* BBViewController.m in Sources */,
-				92C438161A6FC9E0003374ED /* TLSwipeForOptionsCell.m in Sources */,
 				D06CEDBF182ADB7F00E328D5 /* CViewController.m in Sources */,
 				D06CED99182ADB5D00E328D5 /* ViewController.m in Sources */,
 				92C4381C1A764AD7003374ED /* TableViewCell.m in Sources */,
-				D06CEDBA182ADB6B00E328D5 /* BViewController.m in Sources */,
 				D06CED93182ADB5D00E328D5 /* AppDelegate.m in Sources */,
 				D06CED8F182ADB5D00E328D5 /* main.m in Sources */,
-				92C438151A6FC9E0003374ED /* TLOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

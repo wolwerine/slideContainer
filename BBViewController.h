@@ -9,21 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
-@protocol ScrollViewManagerDelegate
+//@protocol ScrollViewManagerDelegate
+//
+//- (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
+//- (void)finishScrollWithTurningPage:(BOOL)needsTurn;
+//
+//- (void) setTextForLabel:(NSString*)text;
+//
+//
+//@end
 
-- (void)changeScrollViewWithOffset:(float)offset andVelocity:(float)velocity;
-- (void)finishScrollWithTurningPage:(BOOL)needsTurn;
-
-- (void) setTextForLabel:(NSString*)text;
-
-
-@end
-
-@interface BBViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ScrollViewManagerDelegate>
+@interface BBViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SlideScrollViewManagerDelegate>
 
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, weak) id<MainScrollViewManagerDelegate> delegate;
+@property (nonatomic, weak) id<SlideScrollViewManagerDelegate> delegate;
 
 
 @end

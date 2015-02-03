@@ -12,7 +12,7 @@
 @interface TableViewCell : UITableViewCell <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView * scrollView;
-@property (nonatomic, weak) id<ScrollViewManagerDelegate> delegate;
+@property (nonatomic, weak) id<SlideScrollViewManagerDelegate> delegate;
 @property (nonatomic, strong) UILabel *mytextLabel;
 
 @end
